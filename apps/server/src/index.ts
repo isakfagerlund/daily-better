@@ -6,7 +6,7 @@ const app = new Hono();
 app.use('/*', cors());
 
 app.get('/', (c) => {
-  return c.json({ message: 'Hello Hono!' });
+  return c.json({ message: 'Hello Hono! Updated version' });
 });
 
 export default app;

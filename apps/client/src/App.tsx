@@ -1,19 +1,17 @@
-import { useEffect, useState } from 'react';
 import './App.css';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { db } from './database/db';
+import { Entries } from './components/Entries';
+import { MessageBox } from './components/MessageBox';
 
 function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch('http://localhost:8787')
-      .then((response) => response.json())
-      .then((data) => setMessage(data.message));
-  }, []);
+  const entries = useLiveQuery(() => db.entries.toArray(), []);
 
   return (
     <div>
-      <h1>Hello World</h1>
-      <p>{message}</p>
+      <h1>Daily Message</h1>
+      <Entries entries={entries} />
+      <MessageBox />
     </div>
   );
 }
